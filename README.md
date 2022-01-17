@@ -77,47 +77,18 @@ Raspberry pi 4B
     我が家のSwitchの場合，MACアドレスは**1C:45:86:D0:25:BF**です．
 
 3. ボタンを押してみる
-   
+    Nintendo Switch の「設定」メニューを開く
+    HOME > 設定 >コントローラーとセンサー > 入力デバイスの動作チェック > ボタンの動作チェック
+
    ```sh
    sudo joycontrol-pluginloader -r 1C:45:86:D0:25:BF plugins/utils/RepeatA.py
    ```
 
-## プラグインの作り方
+## その他リンク
 
-- ファイルを作成する (例: ``SamplePlugin.py``)
-
-    ```python
-    import logging
-    from JoycontrolPlugin import JoycontrolPlugin
-
-    logger = logging.getLogger(__name__)
-
-    class SamplePlugin(JoycontrolPlugin):
-        async def run(self):
-            logger.info('This is sample joycontrol plugin!')
-
-            logger.info(f'Plugin Options: {self.options}')
-
-            logger.info('Push the A Button')
-            await self.button_push('a')
-            await self.wait(0.3)
-
-            logger.info('Tilt the left stick down')
-            await self.left_stick('down')
-            await self.wait(0.3)
-    ```
-
-- ``SamplePlugin.py`` をロードし、実行する 
-
-    ```sh
-    $ sudo joycontrol-pluginloader -r 01:23:45:67:89:AB plugins/samples/SamplePlugin.py --plugin-options option1 option2
-
-    <snip>
-
-    [20:12:44] JoycontrolPlugin.loader __load_plugin::22 INFO - Loading: plugins/samples/SamplePlugin.py
-    [20:12:44] plugins/samples/SamplePlugin.py run::8 INFO - This is sample joycontrol plugin!
-    [20:12:44] plugins/samples/SamplePlugin.py run::10 INFO - Plugin Options: ['option1', 'option2']
-    [20:12:44] plugins/samples/SamplePlugin.py run::12 INFO - Push the A Button
-    [20:12:45] plugins/samples/SamplePlugin.py run::16 INFO - Tilt the left stick down
-    [20:12:45] JoycontrolPlugin.loader start::55 INFO - Stopping communication...
-    ```
+[mart1nro/joycontrol (original)](https://github.com/mart1nro/joycontrol)
+[Poohl/joycontrol (fork)](https://github.com/Poohl/joycontrol)
+[Almtr/joycontrol-pluginloader](https://github.com/Almtr/joycontrol-pluginloader)
+[プラグインのサンプル](https://github.com/Almtr/joycontrol-plugins/tree/master)
+[プラグインの作り方](https://github.com/Almtr/joycontrol-pluginloader#how-to-create-a-plugin)
+[joycontrolのボタン一覧](https://github.com/mart1nro/joycontrol/blob/18a09da1a04306534ff9e1df8a1a69c0192a3244/joycontrol/controller_state.py#L113-L122)
